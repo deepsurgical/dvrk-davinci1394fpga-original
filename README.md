@@ -30,12 +30,12 @@ Porting the Altera-based snake robot firmware to the Xilinx-based da Vinci Resea
 
 [First known recorded power-on of the da Vinci Research Kit (dVRK) motion controller](https://github.com/user-attachments/assets/3037465c-1144-416a-8ffe-dfd9f047238d)
 
-### 3. Code Archaeology: The Migration to JHU Mechatronics Firmware
+### 3. Tech Archaeology: The Migration to JHU Mechatronics Firmware
 
-We can retrace the steps leading from this then-internal `daVinci1394FPGA` codebase to its eventual open source release as `mechatronics-firmware` on GitHub.
+We can retrace the steps leading from the predecessor `SnakeFPGA-rev2` to this `daVinci1394FPGA` to its eventual open source release as JHU `mechatronics-firmware` on GitHub.
 
-#### History Hiding in the Headers: The FireWire.v Revision Logs
-Like a primitive cave painting, there's an old school migration log etched in the header comments of the official [FireWire.v source code](https://github.com/jhu-cisst/mechatronics-firmware/blob/main/FPGA1394_QLA/Verilog/FireWire.v), showing how it was initially written for the snake robot in 2008, ported to the da Vinci about 2.5 years later in 2010, and received sporadic updates until moving to GitHub in Sep 2012:
+#### History Hiding in the Headers: The FireWire.v Migration Logs
+Like a primitive cave painting, there's an old school revision log etched in the header comments of the official [FireWire.v source code](https://github.com/jhu-cisst/mechatronics-firmware/blob/main/FPGA1394_QLA/Verilog/FireWire.v), showing how it was initially written for the snake robot in 2008, ported to the da Vinci about 2.5 years later in 2010, and received sporadic updates until moving to GitHub in Sep 2012:
 
 ```verilog
 /*
@@ -59,19 +59,22 @@ Mechanically adding a robot axis might require a complete redesign, but adding i
 
 The fact that the snake robot had 7 control axes while the dVRK controller had 8 was hardcoded into the firmware in `SnakeFPGA-rev2` and `daVinci1394FPGA` respectively.
 
+#### Hardware, Software, Electronics: The Rise of the da Vinci Research Kit
+
+The $``hardware + software + electronics``$ recipe had been kicking around until 2014, when the [official dVRK publication](https://doi.org/10.1109/ICRA.2014.6907809) documented how this trinity of pillars was toppled one-by-one, leading to the final monument:
+* **Software became commoditized.** The robot software landscape of 2014 featured multiple options. According to the paper, "open-source robot software, such as the Robot Operating System (ROS) [1], has seen widespread adoption."
+* **Hardware became abundant.** The 2014 paper observed that, in a rare twist, clinical-grade surgical robots were becoming "increasingly available to researchers via the reuse of retired clinical systems."
+* **Electronics became the bottleneck.** According to the paper, there were "relatively few open hardware/software platforms in widespread use within the robotics research community." Furthermore, the native da Vinci motion controller—the presumptive bridge between the above hardware and software—was withheld to protect sensitive IP. Thus a dedicated design and engineering initiative was needed to simultaneously unblock the impasse and provide "complete access to all levels of control via open-source electronics and software." This was achieved by employing "an FPGA to enable a centralized computation and distributed I/O architecture" as detailed in this repository.
+
+With the building blocks combined and the framework in place, the paper highlighted several emergent advantages:
+* **Firmware modularizes software.** By handling FireWire transactions entirely on the FPGA, the architecture abstracted the hardware, turning software into interchangeable blocks. Users who "prefer to use a different real-time framework, such as Orocos [15]" could bypass the default software entirely.
+* **Frameworks accelerate development.** The firmware-level hardware abstraction in turn allowed high-level control algorithms to be implemented "in a familiar development environment (Linux PC)," thereby reducing the learning curve. The framework further enabled "reduced cabling... and high flexibility in control algorithms while maintaining precise real-time hardware control. This is particularly useful for developing haptic interactions and virtual fixtures," as well as advanced capabilities such as [autonomous surgery](https://doi.org/10.1126/scirobotics.adt5254) and safety features.
+
+The [dVRK article reasons](https://doi.org/10.1109/ICRA.2014.6907809) through the motion controller's emergence as a key enabler of the da Vinci Research Kit. The electronics, firmware, and architecture that went from `SnakeFPGA-rev2` to `daVinci1394FPGA` to JHU `mechatronics-firmware` helped pave the way for downstream innovations in surgical robotics.
+
 #### Uncovering the Intuitive Research Kit
 Before the open-source rollout and rebrand to the _da Vinci Research Kit (dVRK)_, the platform was provisionally referred to as the _Intuitive Research Kit_. The name can still be found in the [dVRK GitHub repository](https://github.com/jhu-dvrk/sawIntuitiveResearchKit) and in some [transient documents](http://jhir.library.jhu.edu/handle/1774.2/37924) ([pdf](https://rose.mepaul.com/w/images/b/b1/Pault_thesis-136-final.pdf#page=218)):
 > _Besides enabling use of the Snake Robot (Section 3.4.2), the outcomes of this effort formed the basis for JHU Open Source Mechatronics [155, 156], which publicly hosts a set of electronics design files, FPGA code, and basic software for a FireWire-based motion controller. This in turn is a component of the **Intuitive Research Kit** [157,158]._
-
-<!--
-#### Summary of the dVRK's Timeline Leading up to its Launch
-* **Apr 2008:** Motion control architecture implemented for the snake robot: `SnakeFPGA-rev2`
-* **Oct 2010:** Snake robot architecture ported to the dVRK: `daVinci1394FPGA` (Altera → Xilinx FPGA)
-* **Nov 2011:** Both codebases updated and maintained in parallel
-* **Sep 2012:** `daVinci1394FPGA` released as open source to GitHub as `mechatronics-firmware`
-* **Oct 2012:** Expanded 7-axis snake robot to 8-axis da Vinci Research Kit (dVRK)
-* **Present:** Legacy name remains in some repositories: `sawIntuitiveResearchKit`
--->
 
 #### Firmware Versatility
 What started off as a modest set of .v files has expanded to support a wide array of hardware variants and technical features. These are just a few of the many [interesting facts](https://www.mepaul.com/wiki/10-background-facts-da-vinci-research-kit-dvrk) about the dVRK!
