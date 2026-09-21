@@ -34,7 +34,7 @@ Porting the Altera-based snake robot firmware to the Xilinx-based da Vinci Resea
 
 We can retrace the steps leading from the predecessor `SnakeFPGA-rev2` to this `daVinci1394FPGA` to its eventual open source release as JHU `mechatronics-firmware` on GitHub.
 
-#### History Hiding in the Headers: The FireWire.v Migration Logs
+#### 🔍 History Hiding in the Headers: The FireWire.v Migration Logs
 Like a primitive cave painting, there's an old school revision log etched in the header comments of the official [FireWire.v source code](https://github.com/jhu-cisst/mechatronics-firmware/blob/main/FPGA1394_QLA/Verilog/FireWire.v), showing how it was initially written for the snake robot in 2008, ported to the da Vinci about 2.5 years later in 2010, and received sporadic updates until moving to GitHub in Sep 2012:
 
 ```verilog
@@ -52,14 +52,14 @@ Like a primitive cave painting, there's an old school revision log etched in the
  */
 ```
 
-#### Scaling the System: The dVRK Firmware Paramters
+#### 🔍 Scaling the System: The dVRK Firmware Paramters
 Mechanically adding a robot axis might require a complete redesign, but adding it to the controller can be as simple as... adding. This [prehistoric commit](https://github.com/jhu-cisst/mechatronics-firmware/commit/b6e0830884eb06d80bc08d6f908d80e43b5e1405) shows another step in 'transforming' the snake robot into the dVRK:
 
 > Paul Thienphrapa, Oct 16, 2012, FPGA1394_QLA: Increase maximum number of axes from 7 to 8
 
 The fact that the snake robot had 7 control axes while the dVRK controller had 8 was hardcoded into the firmware in `SnakeFPGA-rev2` and `daVinci1394FPGA` respectively.
 
-#### Hardware, Software, Electronics: The Rise of the da Vinci Research Kit
+#### 🔍 Hardware, Software, Electronics: The Rise of the da Vinci Research Kit
 
 The _hardware + software + electronics_ recipe had been kicking around until 2014, when the [official dVRK publication](https://doi.org/10.1109/ICRA.2014.6907809) documented how this trinity of pillars was toppled one-by-one, leading to the final monument:
 * **Software became commoditized.** The robot software landscape of 2014 featured multiple options. According to the paper, "open-source robot software, such as the Robot Operating System (ROS) [1], has seen widespread adoption."
@@ -72,17 +72,17 @@ With the building blocks combined and the framework in place, the paper highligh
 
 The [dVRK article reasons](https://doi.org/10.1109/ICRA.2014.6907809) through the motion controller's emergence as a key enabler of the da Vinci Research Kit. The electronics, firmware, and architecture that went from `SnakeFPGA-rev2` to `daVinci1394FPGA` to JHU `mechatronics-firmware` helped pave the way for downstream innovations in surgical robotics.
 
-#### Uncovering the Intuitive Research Kit
+#### 🔍 Uncovering the Intuitive Research Kit
 Before the open-source rollout and rebrand to the _da Vinci Research Kit (dVRK)_, the platform was provisionally referred to as the _Intuitive Research Kit_. The name can still be found in the [dVRK GitHub repository](https://github.com/jhu-dvrk/sawIntuitiveResearchKit) and in some [transient documents](http://jhir.library.jhu.edu/handle/1774.2/37924) ([pdf](https://rose.mepaul.com/w/images/b/b1/Pault_thesis-136-final.pdf#page=218)):
 > _Besides enabling use of the Snake Robot (Section 3.4.2), the outcomes of this effort formed the basis for JHU Open Source Mechatronics [155, 156], which publicly hosts a set of electronics design files, FPGA code, and basic software for a FireWire-based motion controller. This in turn is a component of the **Intuitive Research Kit** [157,158]._
 
-#### Firmware Versatility
+#### 🔍 Firmware Versatility
 What started off as a modest set of .v files has expanded to support a wide array of hardware variants and technical features. These are just a few of the many [interesting facts](https://www.mepaul.com/wiki/10-background-facts-da-vinci-research-kit-dvrk) about the dVRK!
 
-### Systems Engineering and Modular Mechatronics
+### 4. Systems Engineering and Modular Mechatronics
 This repository highlights the power of modular digital system design. A control architecture abstracted enough to handle multi-axis distributed I/O over a high-speed serial link can easily outlast its physical form, jumping from a bespoke miniature snake robot to a medical robotics research platform found in labs all around the world.
 
-### Historical References
+### 5. References
 1. Design of the motion control architecture: [_Centralized processing and distributed I/O for robot control_](https://doi.org/10.1109/TEPRA.2008.4686678)
 2. Initial prototype for the snake robot: [_A distributed I/O low-level controller for highly-dexterous snake robots_](https://doi.org/10.1109/BIOCAS.2008.4696861)
 3. Architecture generalization and API: [_A scalable system for real-time control of dexterous surgical robots_](https://doi.org/10.1109/TEPRA.2009.5339651)
