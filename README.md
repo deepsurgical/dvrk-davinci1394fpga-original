@@ -2,7 +2,7 @@
 
 This repository preserves the original [da Vinci Research Kit (dVRK)](https://www.intuitive-foundation.org/dvrk/) motion controller FPGA code. Active development has migrated to the Johns Hopkins University [`mechatronics-firmware`](https://github.com/jhu-cisst/mechatronics-firmware) repository beginning from commit [`a38917c`](https://github.com/jhu-cisst/mechatronics-firmware/tree/a38917c2ce4880597da052d8d369eaeaf47659b4).
 
-Instead of being designed from scratch, the dVRK controller was ported from a completely separate robotic system: **a high-degree-of-freedom surgical snake robot.**
+Rather than being designed from scratch, the dVRK controller was ported from a completely separate robotic system: **a high-degree-of-freedom surgical snake robot.**
 
 ### 1. The Snake Robot Cabling Crunch
 
